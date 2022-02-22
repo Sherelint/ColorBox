@@ -1,4 +1,5 @@
 import { createContext } from "react";
+
 const palettes = [
   {
     paletteName: "Material UI Colors",
