@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import useToggle from "../hooks/useToggleState";
+import { generatePalette } from "../helpers/ColorHelpes";
 const palettes = [
   {
     paletteName: "Material UI Colors",
@@ -250,9 +251,21 @@ export const PalettesContext = createContext();
 export function PalettesProvider(props) {
   const [level, setLevel] = useState(500);
   const [copied, setCopied] = useState(false);
+  const { colors } = generatePalette(palettes[4]);
+  const [format, setFormat] = useState("hex");
+
   return (
     <PalettesContext.Provider
-      value={{ palettes, level, setLevel, copied, setCopied }}
+      value={{
+        palettes,
+        colors,
+        level,
+        setLevel,
+        copied,
+        setCopied,
+        format,
+        setFormat,
+      }}
     >
       {props.children}
     </PalettesContext.Provider>

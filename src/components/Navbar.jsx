@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Slider, Select, MenuItem } from "@mui/material";
 import { Icon } from "@iconify/react";
-//import "rc-slider/assets/index.css";
+import { PalettesContext } from "../context/SeedColorsContext";
 import "../styles/Navbar.css";
 export default function Navbar(props) {
-  const { level, changeLevel, handleChange, colors } = props;
-  const [format, setFormat] = useState("hex");
-  const handlerChange = (e) => {
-    setFormat({ format: e.target.value });
-    handleChange(format);
-  };
+  const { level, setLevel, colors, format, setFormat } =
+    useContext(PalettesContext);
+
   return (
     <header className="Navbar">
       <a href="#">
@@ -22,18 +19,17 @@ export default function Navbar(props) {
         <span>Level:{level}</span>
         <div className="slider">
           <Slider
-            key={level}
             defaultValue={level}
             min={100}
             max={900}
             step={100}
-            onChange={changeLevel}
+            onChange={(e) => setLevel(e.target.value)}
             marks
           />
         </div>
       </div>
       <div className="select-container">
-        <Select value={format} onChange={handlerChange}>
+        <Select value={format} onChange={(e) => setFormat(e.target.value)}>
           <MenuItem value="hex">HEX - #FFFF</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
           <MenuItem value="rgba">RGBA - rgba(255,255,25,0.1)</MenuItem>
