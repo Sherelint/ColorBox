@@ -5,8 +5,9 @@ import { PalettesContext } from "../context/SeedColorsContext";
 export default function ColorBox(props) {
   const { background, name } = props;
   const { copied, setCopied } = useContext(PalettesContext);
-  const changeCopyState = (copied) => {
-    setCopied(!copied), () => setTimeout(() => setCopied(!copied), 1500);
+
+  const changeCopyState = () => {
+    setCopied(!copied), setTimeout(setCopied(!copied), 1500);
   };
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>

@@ -11,13 +11,20 @@ export default function Palette(props) {
   const changeLevel = (level) => {
     setLevel(level);
   };
-
+  const changeFormat = (value) => {
+    return value;
+  };
   const colorBoxes = colors[level].map((color) => (
     <ColorBox key={color.id} background={color.hex} name={color.name} />
   ));
   return (
     <div className="Palette">
-      <Navbar level={level} changeLevel={(e) => changeLevel(e.target.value)} />
+      <Navbar
+        handleChange={changeFormat}
+        level={level}
+        changeLevel={changeLevel}
+        colors={colors}
+      />
       <div className="Palette-colors">{colorBoxes}</div>
     </div>
   );
