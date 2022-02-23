@@ -5,10 +5,10 @@ import "../styles/Palette.css";
 import Navbar from "./Navbar";
 
 export default function Palette(props) {
-  const { level, colors } = useContext(PalettesContext);
+  const { level, colors, format } = useContext(PalettesContext);
 
   const colorBoxes = colors[level].map((color) => (
-    <ColorBox key={color.id} background={color.hex} name={color.name} />
+    <ColorBox key={color.id} background={color[format]} name={color.name} />
   ));
   return (
     <div className="Palette">

@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Slider, Select, MenuItem } from "@mui/material";
+import { Slider, Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { PalettesContext } from "../context/SeedColorsContext";
 import "../styles/Navbar.css";
 export default function Navbar(props) {
   const { level, setLevel, colors, format, setFormat } =
     useContext(PalettesContext);
+  const [snack, setSnack] = useState(false);
 
+  const handleChange = (e) => {
+    setFormat(e.target.value);
+    setSnack(true);
+  };
   return (
     <header className="Navbar">
       <a href="#">
@@ -29,12 +34,32 @@ export default function Navbar(props) {
         </div>
       </div>
       <div className="select-container">
-        <Select value={format} onChange={(e) => setFormat(e.target.value)}>
+        <Select value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #FFFF</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
           <MenuItem value="rgba">RGBA - rgba(255,255,25,0.1)</MenuItem>
         </Select>
       </div>
+      <Snackbar
+        key="navbar"
+        color="inherit"
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={snack}
+        autoHideDuration={1500}
+        onClose={() => setSnack(false)}
+        message={
+          <span id="message-id">Format Changed to {format.toUpperCase()}</span>
+        }
+        action={[
+          <IconButton
+            color="inherit"
+            key="close"
+            aria-label="close"
+            onClick={() => setSnack(false)}
+            children={<Icon icon="codicon:chrome-close" />}
+          />,
+        ]}
+      />
     </header>
   );
 }
