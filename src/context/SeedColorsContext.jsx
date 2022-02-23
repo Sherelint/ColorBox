@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 const palettes = [
   {
@@ -248,8 +248,12 @@ const palettes = [
 export const PalettesContext = createContext();
 
 export function PalettesProvider(props) {
+  const [level, setLevel] = useState(500);
+  const [copied, setCopied] = useState(false);
   return (
-    <PalettesContext.Provider value={{ palettes }}>
+    <PalettesContext.Provider
+      value={{ palettes, level, setLevel, copied, setCopied }}
+    >
       {props.children}
     </PalettesContext.Provider>
   );
