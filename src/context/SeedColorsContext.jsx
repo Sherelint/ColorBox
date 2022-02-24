@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import useToggle from "../hooks/useToggleState";
 import { generatePalette } from "../helpers/ColorHelpes";
 const palettes = [
   {
@@ -251,7 +250,8 @@ export const PalettesContext = createContext();
 export function PalettesProvider(props) {
   const [level, setLevel] = useState(500);
   const [copied, setCopied] = useState(false);
-  const { colors } = generatePalette(palettes[4]);
+  const [Id, setId] = useState(4);
+  const { colors } = generatePalette(palettes[Id]);
   const [format, setFormat] = useState("hex");
 
   return (
@@ -265,6 +265,8 @@ export function PalettesProvider(props) {
         setCopied,
         format,
         setFormat,
+        Id,
+        setId,
       }}
     >
       {props.children}

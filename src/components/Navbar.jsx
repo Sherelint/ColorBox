@@ -4,8 +4,7 @@ import { Icon } from "@iconify/react";
 import { PalettesContext } from "../context/SeedColorsContext";
 import "../styles/Navbar.css";
 export default function Navbar(props) {
-  const { level, setLevel, colors, format, setFormat } =
-    useContext(PalettesContext);
+  const { level, setLevel, format, setFormat } = useContext(PalettesContext);
   const [snack, setSnack] = useState(false);
 
   const handleChange = (e) => {
