@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "../styles/ColorBox.css";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { PalettesContext } from "../context/SeedColorsContext";
 import { Snackbar } from "@mui/material";
+
 export default function ColorBox(props) {
   const { background, name } = props;
   const [snack, setSnack] = useState(false);

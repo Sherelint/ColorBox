@@ -1,16 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Slider, Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { PalettesContext } from "../context/SeedColorsContext";
 import "../styles/Navbar.css";
 export default function Navbar(props) {
-  const { level, setLevel, format, setFormat } = useContext(PalettesContext);
+  const { level, setLevel, handleChange } = props;
   const [snack, setSnack] = useState(false);
+  const [format, setFormat] = useState("hex");
 
-  const handleChange = (e) => {
-    setFormat(e.target.value);
+  const changeFormat = (e) => {
+    handleChange(e.target.value);
     setSnack(true);
   };
+
   return (
     <header className="Navbar">
       <a href="#">
@@ -27,13 +28,13 @@ export default function Navbar(props) {
             min={100}
             max={900}
             step={100}
-            onChange={(e) => setLevel(e.target.value)}
+            onChange={() => setLevel(level)}
             marks
           />
         </div>
       </div>
       <div className="select-container">
-        <Select value={format} onChange={handleChange}>
+        <Select value={format} onChange={changeFormat}>
           <MenuItem value="hex">HEX - #FFFF</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
           <MenuItem value="rgba">RGBA - rgba(255,255,25,0.1)</MenuItem>
