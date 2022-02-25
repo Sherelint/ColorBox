@@ -1,41 +1,86 @@
 import React, { useState } from "react";
-import "../styles/ColorBox.css";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Snackbar } from "@mui/material";
+import { useParams } from "react-router-dom";
+import ColorBox from "./ColorBox";
+import { generatePalette } from "../helpers/ColorHelpes";
+import seedColors from "../seedColors";
+import { Icon } from "@iconify/react";
 import { withStyles } from "@mui/styles";
-import styles from "../styles/ColorBoxStyles";
+import styles from "../styles/SinglrColorPaletteStyle";
 import { Link } from "react-router-dom";
+import { Select, MenuItem, Snackbar, IconButton } from "@mui/material";
+//make sure to import seedColors and generatePalette
+
 function SingleColorPalette(props) {
-  const { background, name } = props;
-  const [snack, setSnack] = useState(false);
   const { classes } = props;
+  const { paletteId } = useParams(); //useParams to get the :paletteId
+  const [snack, setSnack] = useState(false);
+
+  const findPalette = (id) => {
+    //same findPalette function in the lesson
+    return seedColors.find(function (palette) {
+      return palette.id === id;
+    });
+  };
+
+  //this used to be the palette prop, now simply defined inside of Palette.js
+  const palette = generatePalette(findPalette(paletteId));
+  const [format, setFormat] = useState("hex");
+  const [level, setLevel] = useState(500);
+  const colorBoxes = palette.colors[level].map((color) => (
+    <ColorBox
+      background={color[format]}
+      name={color.name}
+      key={color.id}
+      colorId={color.id}
+      paletteId={paletteId}
+    />
+  ));
+
+  const changeFormat = (val) => {
+    setFormat(val);
+  };
   return (
-    <CopyToClipboard text={background} onCopy={() => setSnack(true)}>
-      <div style={{ background }} className={classes.ColorBox}>
-        <div className={classes.copyText}>
-          <div className={classes.colorName}>
-            <span>{name}</span>
-          </div>
-          <button className={classes.copyButton}>Copy</button>
+    <div className={classes.Palette}>
+      <header className={classes.Navbar}>
+        <button className={classes.logo}>
+          <Icon icon="eva:arrow-ios-back-outline" />
+          <Link to="/">ReactColorPicker</Link>
+        </button>
+        <div className={classes.selectContainer}>
+          <Select value={format} onChange={(e) => setFormat(e.target.value)}>
+            <MenuItem value="hex">HEX - #FFFF</MenuItem>
+            <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
+            <MenuItem value="rgba">RGBA - rgba(255,255,25,0.1)</MenuItem>
+          </Select>
         </div>
-        <Link to={"/"} onClick={(e) => e.stopPropagation()}>
-          <span className={classes.seeMore}>MORE</span>
-        </Link>
-        <Snackbar
-          key="colorbox"
-          color="inherit"
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={snack}
-          autoHideDuration={1500}
-          onClose={() => setSnack(false)}
-          message={
-            <span id="message-id">
-              Format Changed to {background.toUpperCase()}
-            </span>
-          }
-        />
-      </div>
-    </CopyToClipboard>
+      </header>
+      <div className={classes.colors}>{colorBoxes}</div>
+      <footer className={classes.PaletteFooter}>
+        {palette.paletteName}
+        <span className={classes.emoji}>{palette.emoji}</span>
+      </footer>
+      <Snackbar
+        key="navbar"
+        color="inherit"
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={snack}
+        autoHideDuration={1500}
+        onClose={() => setSnack(false)}
+        message={
+          <span id="message-id">Format Changed to {format.toUpperCase()}</span>
+        }
+        action={[
+          <IconButton
+            color="inherit"
+            key="close"
+            aria-label="close"
+            onClick={() => setSnack(false)}
+            children={<Icon icon="codicon:chrome-close" />}
+          />,
+        ]}
+      />
+    </div>
   );
 }
+
 export default withStyles(styles)(SingleColorPalette);

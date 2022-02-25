@@ -32,7 +32,7 @@ function Navbar(props) {
         <span>Level:{level}</span>
         <div className="slider">
           <Slider
-            value={level}
+            defaultValue={level}
             min={100}
             max={900}
             step={100}

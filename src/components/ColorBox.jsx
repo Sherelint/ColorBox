@@ -23,7 +23,7 @@ function ColorBox(props) {
           to={`/palette/${paletteId}/${colorId}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <span className={classes.seeMore}>MORE</span>
+          <span className={classes.seeMore}>MORE </span>
         </Link>
         <Snackbar
           key="colorbox"
@@ -33,9 +33,7 @@ function ColorBox(props) {
           autoHideDuration={1500}
           onClose={() => setSnack(false)}
           message={
-            <span id="message-id">
-              Format Changed to {background.toUpperCase()}
-            </span>
+            <span id="message-id">Copied {background.toUpperCase()}</span>
           }
         />
       </div>
