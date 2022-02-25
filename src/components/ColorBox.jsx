@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import "../styles/ColorBox.css";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Snackbar } from "@mui/material";
-
-export default function ColorBox(props) {
+import { withStyles } from "@mui/styles";
+import styles from "../styles/ColorBoxStyles";
+function ColorBox(props) {
   const { background, name } = props;
   const [snack, setSnack] = useState(false);
-
+  const { classes } = props;
   return (
     <CopyToClipboard text={background} onCopy={() => setSnack(true)}>
-      <div style={{ background }} className="ColorBox">
-        <div className="copy-container">
-          <div className="box-container">
+      <div style={{ background }} className={classes.ColorBox}>
+        <div className={classes.copyText}>
+          <div className={classes.colorName}>
             <span>{name}</span>
           </div>
-          <button className="copy-button">Copy</button>
+          <button className={classes.copyButton}>Copy</button>
         </div>
-        <span className="see-more">MORE</span>
+        <span className={classes.seeMore}>MORE</span>
         <Snackbar
           key="colorbox"
           color="inherit"
@@ -34,3 +35,4 @@ export default function ColorBox(props) {
     </CopyToClipboard>
   );
 }
+export default withStyles(styles)(ColorBox);

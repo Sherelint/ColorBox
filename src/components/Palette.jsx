@@ -5,9 +5,14 @@ import Navbar from "./Navbar";
 import "../styles/Palette.css";
 import { generatePalette } from "../helpers/ColorHelpes";
 import seedColors from "../seedColors";
+
+import { withStyles } from "@mui/styles";
+import styles from "../styles/PaletteStyles";
+import Footer from "./Footer";
 //make sure to import seedColors and generatePalette
 
-export default function Palette() {
+function Palette(props) {
+  const { classes } = props;
   const { paletteId } = useParams(); //useParams to get the :paletteId
 
   const findPalette = (id) => {
@@ -34,17 +39,16 @@ export default function Palette() {
     setFormat(val);
   };
   return (
-    <div className="Palette">
+    <div className={classes.Palette}>
       <Navbar
         level={level}
         handleLevel={changeLevel}
         handleChange={changeFormat}
       />
-      <div className="Palette-colors">{colorBoxes}</div>
-      <footer className="Palette-footer">
-        {palette.paletteName}
-        <span className="emoji">{palette.emoji}</span>
-      </footer>
+      <div className={classes.colors}>{colorBoxes}</div>
+      <Footer emoji={palette.emoji} name={palette.paletteName} />
     </div>
   );
 }
+
+export default withStyles(styles)(Palette);

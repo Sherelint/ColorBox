@@ -11,8 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<PaletteList palettes={seedColors} />} />
-      <Route path="/palette/:paletteId" element={<Palette />} /> //no more
-      palette prop
+      <Route path="/palette/:paletteId" element={<Palette />} />
     </Routes>
   );
 }

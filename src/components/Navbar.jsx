@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 import { Slider, Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
-import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
-
-export default function Navbar(props) {
+import { withStyles } from "@mui/styles";
+import styles from "../styles/NavbarStyles";
+function Navbar(props) {
   const { level, handleLevel, handleChange } = props;
   const [snack, setSnack] = useState(false);
   const [format, setFormat] = useState("hex");
 
   const changeFormat = (e) => {
     handleChange(e.target.value);
+    setFormat(e.target.value);
     setSnack(true);
   };
 
   const changeLevel = (e) => {
     handleLevel(e.target.value);
   };
+
+  const { classes } = props;
   return (
-    <header className="Navbar">
-      <a href="#">
-        <button className="logo">
-          <Icon icon="eva:arrow-ios-back-outline" />
-          <Link to="/">ReactColorPicker</Link>
-        </button>
-      </a>
-      <div className="slider-container">
+    <header className={classes.Navbar}>
+      <button className={classes.logo}>
+        <Icon icon="eva:arrow-ios-back-outline" />
+        <Link to="/">ReactColorPicker</Link>
+      </button>
+
+      <div className={classes.slider}>
         <span>Level:{level}</span>
         <div className="slider">
           <Slider
@@ -38,7 +40,7 @@ export default function Navbar(props) {
           />
         </div>
       </div>
-      <div className="select-container">
+      <div className={classes.selectContainer}>
         <Select value={format} onChange={changeFormat}>
           <MenuItem value="hex">HEX - #FFFF</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
@@ -68,3 +70,4 @@ export default function Navbar(props) {
     </header>
   );
 }
+export default withStyles(styles)(Navbar);
