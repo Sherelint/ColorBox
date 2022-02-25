@@ -20,6 +20,7 @@ function Navbar(props) {
   };
 
   const { classes } = props;
+
   return (
     <header className={classes.Navbar}>
       <button className={classes.logo}>
@@ -31,7 +32,7 @@ function Navbar(props) {
         <span>Level:{level}</span>
         <div className="slider">
           <Slider
-            defaultValue={level}
+            value={level}
             min={100}
             max={900}
             step={100}
