@@ -35,7 +35,11 @@ export default function Palette() {
   };
   return (
     <div className="Palette">
-      <Navbar level={level} setLevel={setLevel} handleChange={changeFormat} />
+      <Navbar
+        level={level}
+        handleLevel={changeLevel}
+        handleChange={changeFormat}
+      />
       <div className="Palette-colors">{colorBoxes}</div>
       <footer className="Palette-footer">
         {palette.paletteName}

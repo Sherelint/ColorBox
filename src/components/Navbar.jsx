@@ -3,7 +3,7 @@ import { Slider, Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import "../styles/Navbar.css";
 export default function Navbar(props) {
-  const { level, setLevel, handleChange } = props;
+  const { level, handleLevel, handleChange } = props;
   const [snack, setSnack] = useState(false);
   const [format, setFormat] = useState("hex");
 
@@ -12,6 +12,9 @@ export default function Navbar(props) {
     setSnack(true);
   };
 
+  const changeLevel = (e) => {
+    handleLevel(e.target.value);
+  };
   return (
     <header className="Navbar">
       <a href="#">
@@ -28,7 +31,7 @@ export default function Navbar(props) {
             min={100}
             max={900}
             step={100}
-            onChange={() => setLevel(level)}
+            onChange={changeLevel}
             marks
           />
         </div>
