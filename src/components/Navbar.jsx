@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Slider, Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import "../styles/Navbar.css";
+import { Link } from "react-router-dom";
+
 export default function Navbar(props) {
   const { level, handleLevel, handleChange } = props;
   const [snack, setSnack] = useState(false);
@@ -20,7 +22,7 @@ export default function Navbar(props) {
       <a href="#">
         <button className="logo">
           <Icon icon="eva:arrow-ios-back-outline" />
-          <h4 href="#">ReactColorPicker</h4>
+          <Link to="/">ReactColorPicker</Link>
         </button>
       </a>
       <div className="slider-container">
