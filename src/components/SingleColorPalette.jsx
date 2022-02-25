@@ -5,9 +5,8 @@ import { Snackbar } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/ColorBoxStyles";
 import { Link } from "react-router-dom";
-import { color } from "@mui/system";
-function ColorBox(props) {
-  const { background, name, paletteId, colorId } = props;
+function SingleColorPalette(props) {
+  const { background, name } = props;
   const [snack, setSnack] = useState(false);
   const { classes } = props;
   return (
@@ -19,10 +18,7 @@ function ColorBox(props) {
           </div>
           <button className={classes.copyButton}>Copy</button>
         </div>
-        <Link
-          to={`/palette/${paletteId}/${colorId}`}
-          onClick={(e) => e.stopPropagation()}
-        >
+        <Link to={"/"} onClick={(e) => e.stopPropagation()}>
           <span className={classes.seeMore}>MORE</span>
         </Link>
         <Snackbar
@@ -42,4 +38,4 @@ function ColorBox(props) {
     </CopyToClipboard>
   );
 }
-export default withStyles(styles)(ColorBox);
+export default withStyles(styles)(SingleColorPalette);
