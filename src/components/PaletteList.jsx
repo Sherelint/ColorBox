@@ -4,7 +4,8 @@ import MiniPalette from "./MiniPalette";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/PaletteListStyles";
 function PaletteList(props) {
-  const { palettes, classes } = props;
+  const { palettes, classes, history } = props;
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -13,7 +14,13 @@ function PaletteList(props) {
         </nav>
         <div className={classes.palettes}>
           {palettes.map((palette) => (
-            <MiniPalette {...palette} key={palette.id} />
+            <Link
+              style={{ textDecoration: "none" }}
+              key={palette.id}
+              to={`/palette/${palette.id}`}
+            >
+              <MiniPalette {...palette} />
+            </Link>
           ))}
         </div>
       </div>
