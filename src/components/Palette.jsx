@@ -51,6 +51,8 @@ function Palette(props) {
         level={level}
         handleLevel={changeLevel}
         handleChange={changeFormat}
+        showSlider
+        paletteId={paletteId}
       />
       <div className={classes.colors}>{colorBoxes}</div>
       <Footer emoji={palette.emoji} name={palette.paletteName} />

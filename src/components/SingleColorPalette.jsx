@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import ColorBox from "./ColorBox";
+import Navbar from "./Navbar";
 import { generatePalette } from "../helpers/ColorHelpes";
 import seedColors from "../seedColors";
 import { Icon } from "@iconify/react";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/SinglrColorPaletteStyle";
 import { Link, useParams } from "react-router-dom";
-import { Select, MenuItem, Snackbar, IconButton } from "@mui/material";
+import { Snackbar, IconButton } from "@mui/material";
 //make sure to import seedColors and generatePalette
 
 function SingleColorPalette(props) {
@@ -14,7 +15,6 @@ function SingleColorPalette(props) {
   const { paletteId, colorId } = useParams(); //useParams to get the :paletteId
   const [snack, setSnack] = useState(false);
   const [format, setFormat] = useState("hex");
-  const [level, setLevel] = useState(500);
 
   const gatherShades = (palette, colorToFilterBy) => {
     let shades = [];
@@ -35,6 +35,10 @@ function SingleColorPalette(props) {
     });
   };
 
+  const changeFormat = (val) => {
+    setFormat(val);
+  };
+
   const palette = generatePalette(findPalette(paletteId));
   const _shades = gatherShades(palette, colorId);
   //this used to be the palette prop, now simply defined inside of Palette.js
@@ -50,19 +54,11 @@ function SingleColorPalette(props) {
 
   return (
     <div className={classes.Palette}>
-      <header className={classes.Navbar}>
-        <button className={classes.logo}>
-          <Icon icon="eva:arrow-ios-back-outline" />
-          <Link to={`/palette/${paletteId}`}>ReactColorPicker</Link>
-        </button>
-        <div className={classes.selectContainer}>
-          <Select value={format} onChange={(e) => setFormat(e.target.value)}>
-            <MenuItem value="hex">HEX - #FFFF</MenuItem>
-            <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
-            <MenuItem value="rgba">RGBA - rgba(255,255,25,0.1)</MenuItem>
-          </Select>
-        </div>
-      </header>
+      <Navbar
+        handleChange={changeFormat}
+        showSlider={false}
+        paletteId={paletteId}
+      />
       <div className={classes.colors}>{colorBoxes}</div>
       <footer className={classes.PaletteFooter}>
         {colorId}

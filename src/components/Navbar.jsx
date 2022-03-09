@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/NavbarStyles";
 function Navbar(props) {
-  const { level, handleLevel, handleChange } = props;
+  const { level, handleLevel, handleChange, showSlider, paletteId } = props;
   const [snack, setSnack] = useState(false);
   const [format, setFormat] = useState("hex");
 
@@ -25,22 +25,27 @@ function Navbar(props) {
     <header className={classes.Navbar}>
       <button className={classes.logo}>
         <Icon icon="eva:arrow-ios-back-outline" />
-        <Link to="/">ReactColorPicker</Link>
+
+        <Link to={showSlider ? "/" : `/palette/${paletteId}`}>
+          {showSlider ? "ReactColorPicker" : "Back"}
+        </Link>
       </button>
 
-      <div className={classes.slider}>
-        <span>Level:{level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onChange={changeLevel}
-            marks
-          />
+      {showSlider && (
+        <div className={classes.slider}>
+          <span>Level:{level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onChange={changeLevel}
+              marks
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className={classes.selectContainer}>
         <Select value={format} onChange={changeFormat}>
           <MenuItem value="hex">HEX - #FFFF</MenuItem>
