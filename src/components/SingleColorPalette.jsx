@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import ColorBox from "./ColorBox";
 import { generatePalette } from "../helpers/ColorHelpes";
 import seedColors from "../seedColors";
 import { Icon } from "@iconify/react";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/SinglrColorPaletteStyle";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Select, MenuItem, Snackbar, IconButton } from "@mui/material";
 //make sure to import seedColors and generatePalette
 
 function SingleColorPalette(props) {
   const { classes } = props;
-  const { paletteId } = useParams(); //useParams to get the :paletteId
+  const { paletteId, colorId } = useParams(); //useParams to get the :paletteId
   const [snack, setSnack] = useState(false);
+  const [format, setFormat] = useState("hex");
+  const [level, setLevel] = useState(500);
+
+  const gatherShades = (palette, colorToFilterBy) => {
+    let shades = [];
+    let allColors = palette.colors;
+
+    for (let key in allColors) {
+      shades = shades.concat(
+        allColors[key].filter((color) => color.id === colorToFilterBy)
+      );
+    }
+    return shades.slice(1);
+  };
 
   const findPalette = (id) => {
     //same findPalette function in the lesson
@@ -22,29 +35,25 @@ function SingleColorPalette(props) {
     });
   };
 
-  //this used to be the palette prop, now simply defined inside of Palette.js
   const palette = generatePalette(findPalette(paletteId));
-  const [format, setFormat] = useState("hex");
-  const [level, setLevel] = useState(500);
-  const colorBoxes = palette.colors[level].map((color) => (
+  const _shades = gatherShades(palette, colorId);
+  //this used to be the palette prop, now simply defined inside of Palette.js
+
+  const colorBoxes = _shades.map((color) => (
     <ColorBox
       background={color[format]}
       name={color.name}
-      key={color.id}
-      colorId={color.id}
-      paletteId={paletteId}
+      key={color.name}
+      showLink={false}
     />
   ));
 
-  const changeFormat = (val) => {
-    setFormat(val);
-  };
   return (
     <div className={classes.Palette}>
       <header className={classes.Navbar}>
         <button className={classes.logo}>
           <Icon icon="eva:arrow-ios-back-outline" />
-          <Link to="/">ReactColorPicker</Link>
+          <Link to={`/palette/${paletteId}`}>ReactColorPicker</Link>
         </button>
         <div className={classes.selectContainer}>
           <Select value={format} onChange={(e) => setFormat(e.target.value)}>
@@ -56,7 +65,7 @@ function SingleColorPalette(props) {
       </header>
       <div className={classes.colors}>{colorBoxes}</div>
       <footer className={classes.PaletteFooter}>
-        {palette.paletteName}
+        {colorId}
         <span className={classes.emoji}>{palette.emoji}</span>
       </footer>
       <Snackbar

@@ -34,6 +34,7 @@ function Palette(props) {
       key={color.id}
       colorId={color.id}
       paletteId={paletteId}
+      showLink
     />
   ));
 

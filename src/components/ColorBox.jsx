@@ -7,7 +7,7 @@ import styles from "../styles/ColorBoxStyles";
 import { Link } from "react-router-dom";
 import { color } from "@mui/system";
 function ColorBox(props) {
-  const { background, name, paletteId, colorId } = props;
+  const { background, name, paletteId, colorId, showLink } = props;
   const [snack, setSnack] = useState(false);
   const { classes } = props;
   return (
@@ -19,12 +19,14 @@ function ColorBox(props) {
           </div>
           <button className={classes.copyButton}>Copy</button>
         </div>
-        <Link
-          to={`/palette/${paletteId}/${colorId}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className={classes.seeMore}>MORE </span>
-        </Link>
+        {showLink && (
+          <Link
+            to={`/palette/${paletteId}/${colorId}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className={classes.seeMore}>MORE </span>
+          </Link>
+        )}
         <Snackbar
           key="colorbox"
           color="inherit"

@@ -14,7 +14,7 @@ function App() {
       <Route path="/" element={<PaletteList palettes={seedColors} />} />
       <Route path="/palette/:paletteId" element={<Palette />} />
       <Route
-        path="/palette/:paletteId/:color:Id"
+        path="/palette/:paletteId/:colorId"
         element={<SingleColorPalette />}
       />
     </Routes>
