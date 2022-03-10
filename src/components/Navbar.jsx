@@ -26,7 +26,10 @@ function Navbar(props) {
       <button className={classes.logo}>
         <Icon icon="eva:arrow-ios-back-outline" />
 
-        <Link to={showSlider ? "/" : `/palette/${paletteId}`}>
+        <Link
+          className={classes.link}
+          to={showSlider ? "/" : `/palette/${paletteId}`}
+        >
           {showSlider ? "ReactColorPicker" : "Back"}
         </Link>
       </button>
@@ -36,7 +39,7 @@ function Navbar(props) {
           <span>Level:{level}</span>
           <div className="slider">
             <Slider
-              defaultValue={level}
+              value={level}
               min={100}
               max={900}
               step={100}
