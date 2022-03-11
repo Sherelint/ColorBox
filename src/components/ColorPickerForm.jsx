@@ -1,5 +1,9 @@
 import React from "react";
-
+import { ChromePicker } from "react-color";
 export default function ColorPickerForm() {
-  return <div>ColorPickerForm</div>;
+  return (
+    <div>
+      <ChromePicker />
+    </div>
+  );
 }

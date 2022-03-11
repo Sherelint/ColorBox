@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  CssBaseline,
-  Divider,
-  Drawer,
-  Hidden,
-  IconButton,
-  Toolbar,
-} from "@mui/material";
-import classNames from "classnames";
+import { Divider, Drawer, IconButton, Typography, Button } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { withStyles } from "@mui/styles";
 import styles from "../styles/NewPaletteFormStyles";
 import seedColors from "../seedColors";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
+import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
 function NewPaletteForm(props) {
   const { classes, maxColors, palettes } = props;
@@ -29,7 +21,7 @@ function NewPaletteForm(props) {
   };
   const addNewColor = (newColor) => {
     setColors({
-      colors: [...state.colors, newColor],
+      colors: [...colors, newColor],
       newColorName: "",
     });
   };
@@ -50,21 +42,21 @@ function NewPaletteForm(props) {
     while (isDuplicateColor) {
       rand = Math.floor(Math.random() * allColors.length);
       randomColor = allColors[rand];
-      isDuplicateColor = state.colors.some(
+      isDuplicateColor = colors.some(
         (color) => color.name === randomColor.name
       );
     }
-    setColors({ colors: [...state.colors, randomColor] });
+    setColors({ colors: [...colors, randomColor] });
   };
   const handleSubmit = (newPalette) => {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
-    newPalette.colors = state.colors;
+    newPalette.colors = colors;
     props.savePalette(newPalette);
     props.history.push("/");
   };
   const removeColor = (colorName) => {
     setColors({
-      colors: state.colors.filter((color) => color.name !== colorName),
+      colors: colors.filter((color) => color.name !== colorName),
     });
   };
   const onSortEnd = ({ oldIndex, newIndex }) => {
@@ -74,7 +66,7 @@ function NewPaletteForm(props) {
   };
 
   return (
-    <div className={classes.root}>
+    <div /*className={classes.root}*/>
       <PaletteFormNav
         open={open}
         palettes={palettes}
@@ -82,36 +74,36 @@ function NewPaletteForm(props) {
         handleDrawerOpen={handleDrawer}
       />
       <Drawer
-        className={classes.drawer}
+        /*className={classes.drawer}*/
         variant="persistent"
         anchor="left"
         open={open}
-        classes={{
+        /*classes={{
           paper: classes.drawerPaper,
-        }}
+        }}*/
       >
-        <div className={classes.drawerHeader}>
+        <div /*className={classes.drawerHeader}*/>
           <IconButton onClick={handleDrawer}>
-            <ChevronLeftIcon />
+            <Icon icon="akar-icons:chevron-left" />
           </IconButton>
         </div>
         <Divider />
-        <div className={classes.container}>
+        <div /*className={classes.container}*/>
           <Typography variant="h4" gutterBottom>
             Design Your Palette
           </Typography>
-          <div className={classes.buttons}>
+          <div /*className={classes.buttons}*/>
             <Button
               variant="contained"
               color="secondary"
               onClick={clearColors}
-              className={classes.button}
+              /*className={classes.button}*/
             >
               Clear Palette
             </Button>
             <Button
               variant="contained"
-              className={classes.button}
+              /*className={classes.button}*/
               color="primary"
               onClick={addRandomColor}
               disabled={paletteIsFull}
@@ -127,11 +119,11 @@ function NewPaletteForm(props) {
         </div>
       </Drawer>
       <main
-        className={classNames(classes.content, {
+      /*className={classNames(classes.content, {
           [classes.contentShift]: open,
-        })}
+        })}*/
       >
-        <div className={classes.drawerHeader} />
+        <div /*className={classes.drawerHeader} */></div>
         <DraggableColorList
           colors={colors}
           removeColor={removeColor}
@@ -143,4 +135,4 @@ function NewPaletteForm(props) {
     </div>
   );
 }
-export default withStyles(styles, { withTheme: true })(NewPaletteForm);
+export default NewPaletteForm;
