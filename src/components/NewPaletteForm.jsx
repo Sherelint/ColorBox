@@ -1,11 +1,4 @@
 import React from "react";
-
-import seedColors from "../seedColors";
-import PaletteFormNav from "./PaletteFormNav";
-import ColorPickerForm from "./ColorPickerForm";
-import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
-
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -18,6 +11,12 @@ import {
 } from "@mui/material";
 import { Menu, ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { Main, AppBar, DrawerHeader } from "../styles/NewPaletteFormStyles";
+
+import seedColors from "../seedColors";
+import PaletteFormNav from "./PaletteFormNav";
+import ColorPickerForm from "./ColorPickerForm";
+import DraggableColorList from "./DraggableColorList";
+import { arrayMove } from "react-sortable-hoc";
 function NewPaletteForm(props) {
   const drawerWidth = 240;
   const theme = useTheme();

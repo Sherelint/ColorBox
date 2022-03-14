@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App className="font-mono" />
   </BrowserRouter>,
   document.getElementById("root")
 );
