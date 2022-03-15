@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -9,26 +9,30 @@ import {
   Divider,
   IconButton,
 } from "@mui/material";
-import { Menu, ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Menu, ChevronLeft, ChevronRight, Add } from "@mui/icons-material";
 import { Main, AppBar, DrawerHeader } from "../styles/NewPaletteFormStyles";
 
 import seedColors from "../seedColors";
-import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
 function NewPaletteForm(props) {
-  const drawerWidth = 240;
+  const drawerWidth = 400;
   const theme = useTheme();
   const { classes, maxColors, palettes } = props;
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = useState(false);
+  const [colors, setColors] = useState(["purple", "#e15764"]);
+  const [currentColor, setCurrentColor] = useState("red");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const AddColor = (value) => {
+    setColors([...colors, value]);
   };
 
   return (
@@ -69,11 +73,17 @@ function NewPaletteForm(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <ColorPickerForm />
+        <ColorPickerForm
+          AddColor={AddColor}
+          color={currentColor}
+          setCurrentColor={setCurrentColor}
+        />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <PaletteFormNav />
+        {colors.map((color) => (
+          <DraggableColorList color={color} />
+        ))}
       </Main>
     </Box>
   );
