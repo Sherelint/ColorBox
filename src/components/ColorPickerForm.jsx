@@ -14,22 +14,14 @@ export default function ColorPickerForm(props) {
           Random Color
         </Button>
       </div>
-      <div className="flex justify-center items-stretch">
+      <div className="flex justify-center items-center flex-col  gap-3">
         <ChromePicker
           width="calc(90/100*400px)"
           color={color}
           onChange={(newColor) => setCurrentColor(newColor.hex)}
         />
+        <PaletteFormNav addColor={AddColor} color={color} />
       </div>
-      <Button
-        onClick={() => AddColor(color)}
-        variant="contained"
-        color="primary"
-        style={{ backgroundColor: color }}
-      >
-        Add Color
-      </Button>
-      <PaletteFormNav />
     </div>
   );
 }

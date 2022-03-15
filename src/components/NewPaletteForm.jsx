@@ -82,7 +82,7 @@ function NewPaletteForm(props) {
       <Main open={open}>
         <DrawerHeader />
         {colors.map((color) => (
-          <DraggableColorList color={color} />
+          <DraggableColorList key={color} color={color} />
         ))}
       </Main>
     </Box>
